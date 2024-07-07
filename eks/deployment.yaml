@@ -1,21 +1,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: backbone
+  name: jwks-publisher
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: backbone
+      app: jwks-publisher
   template:
     metadata: 
       labels:
-        app: backbone
+        app: jwks-publisher
     spec:
       serviceAccountName: microbackbone
       containers:
-        - name: backbone
-          image: 872859983801.dkr.ecr.ca-central-1.amazonaws.com/oag-backbone:1.0.1
+        - name: jwks-publisher
+          image: 872859983801.dkr.ecr.ca-central-1.amazonaws.com/jwks-publisher:1.0.0
           ports:
             - containerPort: 8080
               protocol: TCP
