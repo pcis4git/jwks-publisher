@@ -11,23 +11,23 @@ import { SecretsManagerClient, GetSecretValueCommand } from "@aws-sdk/client-sec
 dotenv.config();
 
 
-// if (cluster.isPrimary) {
-//   // Step 2: In the master process, fork worker processes for each CPU core
-//   const numCPUs = os.cpus().length;
-//   for (let i = 0; i < numCPUs; i++) {
-//     cluster.fork();
-//   }
+if (cluster.isPrimary) {
+  // Step 2: In the master process, fork worker processes for each CPU core
+  const numCPUs = os.cpus().length;
+  for (let i = 0; i < numCPUs; i++) {
+    cluster.fork();
+  }
 
-//   cluster.on('exit', (worker : Worker) => {
-//     log(`Worker ${worker.process.pid} died`);
-//     cluster.fork();
-//   });
-// } 
-// else { 
+  cluster.on('exit', (worker : Worker) => {
+    console.log(`Worker ${worker.process.pid} died`);
+    cluster.fork();
+  });
+} 
+else { 
 
     launchExpress();
 
-//}
+}
 
 
 async function launchExpress() {
