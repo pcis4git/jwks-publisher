@@ -23,5 +23,12 @@ jobs:
       with:
         node-version: 20
       
-    - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag jwks-publisher:$(date +%s)
+    - uses: mr-smithers-excellent/docker-build-push@v6
+      name: Build & push Docker image
+      with:
+        image: pcis4docker/aws-apps
+        tags: jwks-1.0.0
+        registry: docker.io
+        dockerfile: Dockerfile
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_PASSWORD }}      
